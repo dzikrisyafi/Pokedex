@@ -1,0 +1,121 @@
+body {
+    min-height: 100vh;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.navbar-brand {
+    color: #F4DC26 !important;
+    font-size: 26px !important;
+    font-weight: 700;
+}
+
+.navbar-brand span {
+    color: #707070 !important;
+}
+
+.navbar a.btn{
+    font-weight: 600;
+}
+
+.navbar a.btn-link {
+    color: #707070;
+    text-decoration: none;
+}
+
+.navbar a.btn-warning {
+    color: #FFFFFF;
+}
+
+#search h1.text-center {
+    font-size: 46px;
+    font-weight: 700;
+    color: #707070;
+}
+
+.input-group .input-group-text,
+.input-group .form-control {
+    background-color: #F0F0F0;
+    color: #ccc;
+}
+
+.input-group .form-control {
+    font-size: 18px !important;
+    padding: 30px 0 30px 10px !important;
+}
+
+.input-group .form-control::-webkit-input-placeholder {
+    color: #ccc;
+    font-size: 16px;
+}
+
+figcaption {
+    color: white !important;
+    text-shadow: 1px 1px 1px #686868;
+}
+
+footer {
+    clear: both;
+    position: relative;
+    height: 100px;
+    margin-top: 30px;
+    color: #707070 !important;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+}
+
+footer .nav a {
+    color: #707070 !important;
+}
+
+.login-section-wrapper {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    padding: 68px 100px !important;
+    background-color: #fff; 
+}
+  
+@media (max-width: 991px) {
+    .login-section-wrapper {
+       padding-left: 50px;
+       padding-right: 50px; 
+    } 
+}
+  
+@media (max-width: 575px) {
+    .login-section-wrapper {
+       padding-top: 20px;
+       padding-bottom: 20px;
+       min-height: 100vh; 
+    } 
+}
+  
+.login-wrapper {
+    width: 350px;
+    max-width: 100%;
+    padding-top: 24px;
+    padding-bottom: 24px; 
+}
+
+@media (max-width: 575px) {
+    .login-wrapper {
+      width: 100%; 
+    } 
+}
+
+.login-title {
+    font-size: 30px;
+    color: #000;
+    font-weight: bold;
+    margin-bottom: 40px; 
+}
+
+.login-img {
+    width: 100%;
+    height: 100vh;
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: left;
+    object-position: left; 
+}
