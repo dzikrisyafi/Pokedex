@@ -10,5 +10,6 @@ class Home extends CI_Controller
         $this->load->view('templates/topmenu');
         $this->load->view('home/index');
         $this->load->view('templates/footer');
+        $this->load->view('templates/script');
     }
 }
