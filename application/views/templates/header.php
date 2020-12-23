@@ -14,4 +14,4 @@
     <title><?= $title; ?></title>
 </head>
 
-<body>
+<body <?php if ($bgcolor) : ?> style="background-color: <?= $bgcolor; ?>;" <?php endif; ?>>

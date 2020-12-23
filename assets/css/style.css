@@ -1,6 +1,7 @@
 body {
     min-height: 100vh;
     font-family: 'Roboto', sans-serif !important;
+    color: #707070 !important;
 }
 
 .navbar-brand {

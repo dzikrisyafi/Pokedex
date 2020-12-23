@@ -6,12 +6,18 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <form class="form-inline ml-auto">
-                <a href="<?= base_url('auth/login'); ?>" class="btn btn-link mr-3">
-                    Sign In
-                </a>
-                <a href="<?= base_url('auth/register'); ?>" class="btn btn-warning mr-3">
-                    Sign Up
-                </a>
+                <?php if ($this->session->userdata('email')) : ?>
+                    <a href="<?= base_url('auth/logout'); ?>" class="btn btn-link">
+                        Logout
+                    </a>
+                <?php else : ?>
+                    <a href="<?= base_url('auth/login'); ?>" class="btn btn-link mr-3">
+                        Sign In
+                    </a>
+                    <a href="<?= base_url('auth/register'); ?>" class="btn btn-warning">
+                        Sign Up
+                    </a>
+                <?php endif; ?>
             </form>
         </div>
     </div>

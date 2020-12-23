@@ -16,7 +16,9 @@ class Auth extends CI_Controller
 
     public function login()
     {
+        is_login_redirect();
         $data['title'] = 'Sign in';
+        $data['bgcolor'] = '';
 
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
@@ -45,7 +47,12 @@ class Auth extends CI_Controller
                 ];
 
                 $this->session->set_userdata($data);
-                redirect('home');
+
+                if ($data['role_id'] == 1) {
+                    redirect('admin');
+                } else {
+                    redirect('user');
+                }
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Invalid email or password</div>');
                 redirect('auth/login');
@@ -58,7 +65,9 @@ class Auth extends CI_Controller
 
     public function register()
     {
+        is_login_redirect();
         $data['title'] = 'Sign up';
+        $data['bgcolor'] = '';
 
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[p_user.email]', [
             'is_unique' => 'This email already registered!'
@@ -84,5 +93,19 @@ class Auth extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Congratulation! your account has been created. Please Sign in</div>');
             redirect('auth/login');
         }
+    }
+
+    public function logout()
+    {
+        $this->session->unset_userdata('email');
+        $this->session->unset_userdata('role_id');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">You have been logged out!</div>');
+        redirect('auth/login');
+    }
+
+    public function blocked()
+    {
+        echo 'Access Forbidden';
     }
 }
