@@ -15,8 +15,10 @@ class Admin extends CI_Controller
     {
         $data['title'] = 'Admin';
         $data['bgcolor'] = '#F3F4F6';
+        $data['pokemons'] = $this->Pokemon->getPokemons();
         $data['p_categories'] = $this->Pokemon->getCategories();
         $data['p_abilities'] = $this->Pokemon->getAbilities();
+        $data['types'] = $this->Pokemon->getTypes();
 
         $this->form_validation->set_rules('name', 'Pokemon Name', 'required|trim');
         if ($this->form_validation->run() == false) {
@@ -43,13 +45,16 @@ class Admin extends CI_Controller
 
             $data = [
                 'name' => $this->input->post('name'),
-                'category' => $this->input->post('category'),
-                'ability' => $this->input->post('ability'),
+                'category_id' => $this->input->post('category'),
+                'ability_id' => $this->input->post('ability'),
                 'description' => $this->input->post('description'),
+                'bgcolor' => $this->input->post('bgcolor'),
                 'image' => $image
             ];
 
-            $this->Pokemon->insertPokemon($data);
+            $type = $this->input->post('type');
+
+            $this->Pokemon->insertPokemon($data, $type);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New Pokemon has been added!</div>');
             redirect('admin');
         }

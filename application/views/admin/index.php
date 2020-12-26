@@ -16,48 +16,26 @@
                 <table class="table table-hover">
                     <thead style="background-color: #F9FAFB;">
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Pokemon Name</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Ability</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">4</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">5</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                        </tr>
+                        <?php foreach ($pokemons as $pokemon) : ?>
+                            <tr>
+                                <td><img src="<?= base_url('assets/') ?>img/pokemon/<?= $pokemon['image'] ?>" alt="Pokemon Image" class="rounded-circle border" width="45px"></td>
+                                <td class="align-middle"><?= $pokemon['pname'] ?></td>
+                                <td class="align-middle"><?= $pokemon['cname'] ?></td>
+                                <td class="align-middle"><?= $pokemon['aname'] ?></td>
+                                <td class="align-middle">
+                                    <span class="badge badge-warning mr-1">Edit</span>
+                                    <span class="badge badge-danger">Delete</span>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -86,7 +64,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="tambahModalLabel">Tambah Pokemon</h5>
@@ -96,12 +74,22 @@
             </div>
             <div class="modal-body">
                 <form method="POST" action="<?= base_url('admin'); ?>" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="name">Pokemon Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter pokemon name">
+                    <div class="form-row">
+                        <div class="form-group col-sm">
+                            <label for="name">Pokemon Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter pokemon name">
+                        </div>
+                        <div class="form-group col-sm">
+                            <label for="type">Type</label>
+                            <select id="type" class="selectpicker" data-width="100%" data-live-search="true" name="type[]" multiple>
+                                <?php foreach ($types as $type) : ?>
+                                    <option value="<?= $type['id'] ?>"><?= $type['name']; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md">
+                        <div class="form-group col-sm">
                             <label for="category">Category</label>
                             <select id="category" name="category" class="form-control">
                                 <option selected>Choose...</option>
@@ -110,7 +98,7 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <div class="form-group col-md">
+                        <div class="form-group col-sm">
                             <label for="ability">Abilities</label>
                             <select id="ability" name="ability" class="form-control">
                                 <option selected>Choose...</option>
@@ -125,19 +113,13 @@
                         <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter description..."></textarea>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-sm-2 mb-1">
-                            Picture
+                        <div class="form-group col-sm-4">
+                            <label for="bgcolor">Background Color</label>
+                            <input type="color" class="form-control" id="bgcolor" name="bgcolor" style="width: 20%;">
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-sm-3">
-                                <img src=" <?= base_url('assets/') ?>img/pokemon/default.png" class="img-thumbnail">
-                            </div>
-                            <div class="form-group col-sm-9">
-                                <div class="custom-file">
-                                    <label class="custom-file-label" for="image">Choose file</label>
-                                    <input type="file" class="custom-file-input" id="image" name="image" />
-                                </div>
-                            </div>
+                        <div class="form-group col-sm">
+                            <label for="image">Picture</label>
+                            <input type="file" class="form-control-file" id="image" name="image">
                         </div>
                     </div>
             </div>
