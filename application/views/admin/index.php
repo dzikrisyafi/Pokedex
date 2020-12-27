@@ -7,7 +7,7 @@
     <?= $this->session->flashdata('message'); ?>
     <div class="row">
         <div class="col-md d-flex justify-content-end">
-            <button type="button" class="btn text-white font-weight-bold" style="background-color:#96C575;" data-toggle="modal" data-target="#tambahModal">Tambah</button>
+            <button type="button" id="showAddModal" class="btn text-white font-weight-bold" style="background-color:#96C575;" data-toggle="modal" data-target="#formModal">Tambah</button>
         </div>
     </div>
     <div class="row mt-2">
@@ -31,8 +31,8 @@
                                 <td class="align-middle"><?= $pokemon['cname'] ?></td>
                                 <td class="align-middle"><?= $pokemon['aname'] ?></td>
                                 <td class="align-middle">
-                                    <span class="badge badge-warning mr-1">Edit</span>
-                                    <span class="badge badge-danger">Delete</span>
+                                    <a href="<?= base_url('admin/edit/') . $pokemon['pokemon_id'] ?>" class="badge badge-warning showEditModal mr-1" data-toggle="modal" data-target="#formModal" data-id="<?= $pokemon['pokemon_id']; ?>">Edit</a>
+                                    <a href="<?= base_url('admin/delete/') . $pokemon['pokemon_id'] ?>" class="badge badge-danger showDeleteModal" data-toggle="modal" data-target="#deleteModal" data-id="<?= $pokemon['pokemon_id']; ?>">Delete</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -62,18 +62,21 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="tambahModalLabel" aria-hidden="true">
+<!-- Create and Update Modal -->
+<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="tambahModalLabel">Tambah Pokemon</h5>
+                <h5 class="modal-title" id="formModalLabel">Tambah Pokemon</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form method="POST" action="<?= base_url('admin'); ?>" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" id="pokemon_id" name="pokemon_id">
+                    </div>
                     <div class="form-row">
                         <div class="form-group col-sm">
                             <label for="name">Pokemon Name</label>
@@ -128,6 +131,28 @@
                 <button type="submit" class="btn font-weight-bold text-white" style="background-color: #96C575;">Tambah</button>
             </div>
             </form>
+        </div>
+    </div>
+</div>
+<!-- End of Create and Update Modal -->
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Delete Pokemon?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a type="submit" id="delete" class="btn btn-danger">Delete</a>
+            </div>
         </div>
     </div>
 </div>

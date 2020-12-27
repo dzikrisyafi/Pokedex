@@ -3,6 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Pokemon extends CI_Model
 {
+    public function getPokemonImage($id)
+    {
+        $this->db->select('image');
+        $this->db->from('pokemon');
+        $this->db->where('pokemon_id', $id);
+        return $this->db->get()->row_array();
+    }
 
     public function getPokemons()
     {
@@ -32,6 +39,32 @@ class Pokemon extends CI_Model
         $this->db->trans_complete();
     }
 
+    public function editPokemon($data, $type, $id)
+    {
+        $this->db->trans_start();
+
+        $this->db->where('pokemon_id', $id);
+        $this->db->update('pokemon', $data);
+
+        $this->db->delete('p_type', ['pokemon_id' => $id]);
+
+        $result = array();
+        foreach ($type as $key => $val) {
+            $result[] = array(
+                'pokemon_id' => $this->input->post('pokemon_id'),
+                'type_id' => $_POST['type'][$key]
+            );
+        }
+
+        $this->db->insert_batch('p_type', $result);
+        $this->db->trans_complete();
+    }
+
+    public function deletePokemon($id)
+    {
+        $this->db->delete('pokemon', ['pokemon_id' => $id]);
+    }
+
     public function getCategories()
     {
         return $this->db->get('category')->result_array();
@@ -45,5 +78,14 @@ class Pokemon extends CI_Model
     public function getTypes()
     {
         return $this->db->get('type')->result_array();
+    }
+
+    public function getTypesByPokemonID($id)
+    {
+        $this->db->select('type.id as id');
+        $this->db->from('type');
+        $this->db->join('p_type', 'p_type.type_id=type.id');
+        $this->db->where('p_type.pokemon_id', $id);
+        return $this->db->get()->result_array();
     }
 }
