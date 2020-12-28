@@ -19,7 +19,9 @@ $(function () {
         $('#formModalLabel').html('Ubah Pokemon');
         $('.modal-footer button[type=submit]').html('Ubah');
         $('.modal-body form').attr('action', 'http://localhost/Pokedex/admin/edit');
-        $('.selectpicker').addClass("strings");
+
+        $('.selectpicker').removeClass('strings').addClass("strings");
+        $('.selectpicker option').prop('selected', false).trigger('change');
 
         const id = $(this).data('id');
 
@@ -42,17 +44,16 @@ $(function () {
             url: 'http://localhost/Pokedex/admin/getPokemonTypeJSON',
             data: { id: id },
             method: 'post',
-            dataType: 'json',
+            cache: false,
             success: function (data) {
                 var item = data;
-                var val1 = item.toString().replace("[", "");
+                var val1 = item.replace("[", "");
                 var val2 = val1.replace("]", "");
                 var values = val2;
-
-                $.each(values.split(','), function (i, e) {
-                    $(".strings option[value='" + e + "'").prop('selected', true).trigger('change');
+                $.each(values.split(","), function (i, e) {
+                    $(".strings option[value='" + e + "']").prop("selected", true).trigger('change');
                     $(".strings").selectpicker('refresh');
-                })
+                });
             }
         })
     });

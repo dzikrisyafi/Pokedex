@@ -11,7 +11,7 @@ class Pokemon extends CI_Model
         return $this->db->get()->row_array();
     }
 
-    public function getPokemons()
+    public function getPokemons($limit, $start)
     {
         $this->db->select('
             pokemon_id, image, pokemon.name as pname, category.name as cname, ability.name as aname
@@ -19,7 +19,13 @@ class Pokemon extends CI_Model
         $this->db->from('pokemon');
         $this->db->join('category', 'category.category_id=pokemon.category_id');
         $this->db->join('ability', 'ability.ability_id=pokemon.ability_id');
-        return $this->db->get()->result_array();
+        $this->db->order_by('pokemon.name', 'ASC');
+        return $this->db->get('', $limit, $start)->result_array();
+    }
+
+    public function countAllPokemon()
+    {
+        return $this->db->get('pokemon')->num_rows();
     }
 
     public function insertPokemon($data, $type)

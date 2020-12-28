@@ -15,7 +15,11 @@ class Admin extends CI_Controller
     {
         $data['title'] = 'Admin';
         $data['bgcolor'] = '#F3F4F6';
-        $data['pokemons'] = $this->Pokemon->getPokemons();
+
+        $this->load->library('pagination');
+        pagination_config();
+        $data['start'] = $this->uri->segment(3);
+        $data['pokemons'] = $this->Pokemon->getPokemons(4, $data['start']);
         $data['p_categories'] = $this->Pokemon->getCategories();
         $data['p_abilities'] = $this->Pokemon->getAbilities();
         $data['types'] = $this->Pokemon->getTypes();

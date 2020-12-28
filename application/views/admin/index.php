@@ -14,7 +14,7 @@
         <div class="col-lg">
             <div class="card">
                 <table class="table table-hover">
-                    <thead style="background-color: #F9FAFB;">
+                    <thead class="primary-color" style="background-color: #F9FAFB;">
                         <tr>
                             <th scope="col">Image</th>
                             <th scope="col">Pokemon Name</th>
@@ -23,7 +23,7 @@
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="primary-color">
                         <?php foreach ($pokemons as $pokemon) : ?>
                             <tr>
                                 <td><img src="<?= base_url('assets/') ?>img/pokemon/<?= $pokemon['image'] ?>" alt="Pokemon Image" class="rounded-circle border" width="45px"></td>
@@ -39,7 +39,10 @@
                     </tbody>
                 </table>
             </div>
-            <nav class="mt-4">
+
+            <?= $this->pagination->create_links(); ?>
+
+            <!-- <nav class="mt-4">
                 <ul class="pagination justify-content-end">
                     <li class="page-item">
                         <a class="page-link" href="#" aria-label="Previous">
@@ -57,7 +60,7 @@
                         </a>
                     </li>
                 </ul>
-            </nav>
+            </nav> -->
         </div>
     </div>
 </div>
