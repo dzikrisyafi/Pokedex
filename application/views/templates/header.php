@@ -16,3 +16,4 @@
 </head>
 
 <body <?php if ($bgcolor) : ?> style="background-color: <?= $bgcolor; ?>;" <?php endif; ?>>
+    <div class="page-container">

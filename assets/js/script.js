@@ -62,4 +62,32 @@ $(function () {
         const id = $(this).data('id');
         $('.modal-footer a').attr('href', 'http://localhost/Pokedex/admin/delete/' + id);
     });
-})
+
+    $('[data-toggle="popover"]').popover()
+
+    var figcap_size = $('#figure figcaption').length;
+    var x = 4
+
+    $('#pokemon figure:lt(' + x + ')').show();
+
+    pokemon(0);
+    $('#load_more').on('click', function (e) {
+        e.preventDefault();
+        var page = $(this).data('val');
+        pokemon(page);
+        x = (x + 3 <= figcap_size) ? x + 3 : figcap_size;
+        $('#pokemon figure:lt(' + x + ')').show();
+        $(this).toggle(x < figcap_size);
+    });
+});
+
+var pokemon = function (page) {
+    $.ajax({
+        url: 'http://localhost/Pokedex/home/getPokemon',
+        type: 'GET',
+        data: { page: page }
+    }).done(function (data) {
+        $('#pokemon').append(data);
+        $('#load_more').data('val', ($('#load_more').data('val') + 1));
+    })
+}

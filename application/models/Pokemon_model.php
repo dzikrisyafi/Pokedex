@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Pokemon extends CI_Model
+class Pokemon_model extends CI_Model
 {
     public function getPokemonImage($id)
     {
@@ -9,6 +9,18 @@ class Pokemon extends CI_Model
         $this->db->from('pokemon');
         $this->db->where('pokemon_id', $id);
         return $this->db->get()->row_array();
+    }
+
+    public function getAllPokemon($page)
+    {
+        // $this->db->order_by('name', 'ASC');
+        // return $this->db->get('pokemon')->result_array();
+        $offset = 10 * $page;
+        $limit = 10;
+
+        $this->db->limit($limit, $offset);
+        $this->db->order_by('name', 'ASC');
+        return $this->db->get('pokemon')->result_array();
     }
 
     public function getPokemons($limit, $start)
@@ -21,6 +33,19 @@ class Pokemon extends CI_Model
         $this->db->join('ability', 'ability.ability_id=pokemon.ability_id');
         $this->db->order_by('pokemon.name', 'ASC');
         return $this->db->get('', $limit, $start)->result_array();
+    }
+
+    public function getPokemonByID($id)
+    {
+        $this->db->select('
+            pokemon_id, image, pokemon.name as pname, pokemon.description as pdesc, 
+            category.name as cname, ability.name as aname, ability.description as adesc, bgcolor
+        ');
+        $this->db->from('pokemon');
+        $this->db->join('category', 'category.category_id=pokemon.category_id');
+        $this->db->join('ability', 'ability.ability_id=pokemon.ability_id');
+        $this->db->where('pokemon_id', $id);
+        return $this->db->get()->row_array();
     }
 
     public function countAllPokemon()
@@ -88,7 +113,7 @@ class Pokemon extends CI_Model
 
     public function getTypesByPokemonID($id)
     {
-        $this->db->select('type.id as id');
+        $this->db->select('type.id as id, name, bgcolor');
         $this->db->from('type');
         $this->db->join('p_type', 'p_type.type_id=type.id');
         $this->db->where('p_type.pokemon_id', $id);

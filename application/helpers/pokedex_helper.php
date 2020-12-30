@@ -32,7 +32,7 @@ function pagination_config()
     $ci = get_instance();
     // config
     $config['base_url'] = 'http://localhost/Pokedex/admin/index';
-    $config['total_rows'] = $ci->Pokemon->countAllPokemon();
+    $config['total_rows'] = $ci->Pokemon_model->countAllPokemon();
     $config['per_page'] = 4;
     // styling
     $config['full_tag_open'] = '<nav aria-label="Page navigation example" class="mt-4"><ul class="pagination justify-content-end">';

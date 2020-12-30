@@ -8,7 +8,7 @@ class Admin extends CI_Controller
         parent::__construct();
         is_logged_in();
         $this->load->library('form_validation');
-        $this->load->model('Pokemon');
+        $this->load->model('Pokemon_model');
     }
 
     public function index()
@@ -19,10 +19,10 @@ class Admin extends CI_Controller
         $this->load->library('pagination');
         pagination_config();
         $data['start'] = $this->uri->segment(3);
-        $data['pokemons'] = $this->Pokemon->getPokemons(4, $data['start']);
-        $data['p_categories'] = $this->Pokemon->getCategories();
-        $data['p_abilities'] = $this->Pokemon->getAbilities();
-        $data['types'] = $this->Pokemon->getTypes();
+        $data['pokemons'] = $this->Pokemon_model->getPokemons(4, $data['start']);
+        $data['p_categories'] = $this->Pokemon_model->getCategories();
+        $data['p_abilities'] = $this->Pokemon_model->getAbilities();
+        $data['types'] = $this->Pokemon_model->getTypes();
 
         $this->form_validation->set_rules('name', 'Pokemon Name', 'required|trim');
         if ($this->form_validation->run() == false) {
@@ -58,7 +58,7 @@ class Admin extends CI_Controller
 
             $type = $this->input->post('type');
 
-            $this->Pokemon->insertPokemon($data, $type);
+            $this->Pokemon_model->insertPokemon($data, $type);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New Pokemon has been added!</div>');
             redirect('admin');
         }
@@ -71,7 +71,7 @@ class Admin extends CI_Controller
 
     public function getPokemonTypeJSON()
     {
-        $data = $this->Pokemon->getTypesByPokemonID($_POST['id']);
+        $data = $this->Pokemon_model->getTypesByPokemonID($_POST['id']);
         foreach ($data as $result) {
             $value[] = (float) $result['id'];
         }
@@ -93,7 +93,7 @@ class Admin extends CI_Controller
 
                 $this->load->library('upload', $config);
                 if ($this->upload->do_upload('image')) {
-                    $old_image = $this->Pokemon->getPokemonImage($id);
+                    $old_image = $this->Pokemon_model->getPokemonImage($id);
                     unlink(FCPATH . 'assets/img/pokemon/' . $old_image['image']);
                     $new_image = $this->upload->data('file_name');
                 } else {
@@ -112,7 +112,7 @@ class Admin extends CI_Controller
 
             $type = $this->input->post('type');
 
-            $this->Pokemon->editPokemon($data, $type, $id);
+            $this->Pokemon_model->editPokemon($data, $type, $id);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pokemon has been edited!</div>');
             redirect('admin');
         }
@@ -120,7 +120,7 @@ class Admin extends CI_Controller
 
     public function delete($id)
     {
-        $data = $this->Pokemon->getPokemonImage($id);
+        $data = $this->Pokemon_model->getPokemonImage($id);
         unlink(FCPATH . 'assets/img/pokemon/' . $data['image']);
         $this->Pokemon->deletePokemon($id);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pokemon has been deleted!</div>');

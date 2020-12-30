@@ -2,7 +2,7 @@
     <div class="row" style="margin-bottom: -10px;">
         <div class="col-sm-5 login-section-wrapper">
             <div class=" login-wrapper my-auto">
-                <h1 class="login-title">Sign in to your account</h1>
+                <h1 class="login-title primary-color">Sign in to your account</h1>
 
                 <?= $this->session->flashdata('message'); ?>
 

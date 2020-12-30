@@ -2,7 +2,7 @@
     <div class="row" style="margin-bottom: -10px;">
         <div class="col-sm-5 login-section-wrapper">
             <div class=" login-wrapper my-auto">
-                <h1 class="login-title">Sign up</h1>
+                <h1 class="login-title primary-color">Sign up</h1>
                 <form method="POST" action="<?= base_url('auth/register'); ?>" novalidate>
                     <div class="form-group">
                         <label for="email">Email Address</label>
