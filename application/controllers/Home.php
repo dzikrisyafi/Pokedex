@@ -25,10 +25,14 @@ class Home extends CI_Controller
     {
         $pokemons = [];
 
-        // cek jika variable page sudah tersedia
-        if (isset($_GET['page'])) {
-            $page =  $_GET['page'];
-            $pokemons = $this->Pokemon_model->getAllPokemon($page);
+        // cek jika variable keyword sudah tersedia
+        if (isset($_GET['keyword'])) {
+            $pokemons = $this->Pokemon_model->getPokemonByName($_GET['keyword']);
+        } else {
+            if (isset($_GET['page'])) {
+                $page =  $_GET['page'];
+                $pokemons = $this->Pokemon_model->getAllPokemon($page);
+            }
         }
 
         $numofCols = 5;

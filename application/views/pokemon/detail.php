@@ -9,7 +9,7 @@
             <div class="row justify-content-center">
                 <?php foreach ($types as $type) : ?>
                     <div class="col-md-6">
-                        <div class="border text-center text-white font-weight-bold" style="background-color: <?= $type['bgcolor']; ?>; padding: 5px; border-radius: 10px;">
+                        <div class="border-0 text-center text-white font-weight-bold" style="background-color: <?= $type['bgcolor']; ?>; padding: 5px; border-radius: 10px;">
                             <?= $type['name'] ?>
                         </div>
                     </div>

@@ -6,14 +6,16 @@
                 <h1 class="text-center mb-5">
                     Cari Pokémon Favoritmu
                 </h1>
+
                 <div class="input-group input-group-lg mb-2">
                     <div class="input-group-prepend">
                         <span class="input-group-text border-0" id="basic-addon1" style="font-size: 16px;">
                             <i class="fas fa-search"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control border-0" placeholder="Cari Pokemon...">
+                    <input type="text" id="keyword" name="keyword" class="form-control border-0" placeholder="Cari Pokemon...">
                 </div>
+
                 <div class="text-center" style="color: #ccc;">
                     <small class="mr-2">Greninja</small>
                     <small class="mr-2">Lucario</small>

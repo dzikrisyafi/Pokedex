@@ -23,6 +23,18 @@ class Pokemon_model extends CI_Model
         return $this->db->get('pokemon')->result_array();
     }
 
+    public function getPokemonByName($keyword)
+    {
+        // $offset = 10 * $page;
+        // $limit = 10;
+        if ($keyword != '') {
+            $this->db->like('name', $keyword);
+        }
+        $this->db->limit(10);
+        $this->db->order_by('name', 'ASC');
+        return $this->db->get('pokemon')->result_array();
+    }
+
     public function getPokemons($limit, $start)
     {
         $this->db->select('

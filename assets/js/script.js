@@ -65,7 +65,7 @@ $(function () {
 
     $('[data-toggle="popover"]').popover()
 
-    var figcap_size = $('#figure figcaption').length;
+    var figcap_size = $('#pokemon figure').length;
     var x = 4
 
     $('#pokemon figure:lt(' + x + ')').show();
@@ -79,13 +79,34 @@ $(function () {
         $('#pokemon figure:lt(' + x + ')').show();
         $(this).toggle(x < figcap_size);
     });
+
+    $('#keyword').on('keyup', function () {
+        $.ajax({
+            url: 'http://localhost/Pokedex/home/getPokemon',
+            method: 'GET',
+            data: { keyword: $(this).val() },
+            success: function (data) {
+                $('#pokemon').html(data);
+                var figcap_size = $('#pokemon figure').length;
+                if (figcap_size < 10 && keyword !== '') {
+                    $('#load_more').hide();
+                } else {
+                    $('#load_more').show();
+                    $('#load_more').data('val', 1);
+                }
+            }
+        })
+    })
+
 });
 
 var pokemon = function (page) {
     $.ajax({
         url: 'http://localhost/Pokedex/home/getPokemon',
         type: 'GET',
-        data: { page: page }
+        data: {
+            page: page,
+        }
     }).done(function (data) {
         $('#pokemon').append(data);
         $('#load_more').data('val', ($('#load_more').data('val') + 1));
